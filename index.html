@@ -1,1 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Equipo APIN — Blip LATAM</title>
+  <style>
+    :root{
+      /* === PALETA BLIP === */
+      --blip-primary: #0095FF;     /* Azul principal Blip */
+      --blip-primary-600:#0072CC;  /* Azul más oscuro (hover/contraste) */
+      --blip-secondary: #00B2FF;   /* Azul claro para degradados */
+      --ink-900:#000000;           /* Negro (titulares/contraste) */
+      --ink-700:#444444;           /* Gris texto */
+      --ink-500:#707070;           /* Gris medio */
+      --ink-300:#D1D5DB;           /* Gris claro (borde) */
+      --bg:#FFFFFF;                /* Fondo */
+      --card:#F7F9FA;              /* Tarjetas */
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink-900);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    h1,h2,h3{margin:0}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .title{font-weight:800;font-size:clamp(24px,3.2vw,36px);text-align:center;color:var(--ink-900);letter-spacing:.2px}
+    .subtitle{margin-top:6px;text-align:center;color:var(--ink-500)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:24px 0}
+    .input,.select,.button{border:1px solid var(--ink-300);border-radius:14px;padding:10px 14px;font-size:16px;outline:none;background:#fff}
+    .input:focus,.select:focus{border-color:var(--blip-primary);box-shadow:0 0 0 3px rgba(0,149,255,.15)}
+    .button{cursor:pointer;background:linear-gradient(135deg,var(--blip-primary),var(--blip-secondary));color:#fff;border:none}
+    .button:hover{filter:brightness(1.05)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+    .card{background:var(--card);border-radius:18px;box-shadow:0 8px 24px rgba(17,24,39,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(17,24,39,.10)}
+    .hero{height:120px;background:linear-gradient(100deg,var(--blip-primary),var(--blip-secondary));position:relative}
+    .photo{position:absolute;right:10px;bottom:-36px;width:84px;height:84px;border-radius:20px;border:3px solid #fff;background:#fff;display:grid;place-items:center;overflow:hidden}
+    .photo img{width:100%;height:100%;object-fit:cover}
+    .content{padding:16px 16px 18px 16px}
+    .name{color:var(--blip-primary);font-weight:800}
+    .role{color:var(--ink-500);margin-top:2px;font-size:14px}
+    .kv{margin:8px 0;font-size:14px;color:var(--ink-700)}
+    .kv strong{color:var(--ink-900)}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .badge{background:#E6F4FF;color:var(--blip-primary);font-weight:600;border-radius:999px;padding:6px 10px;font-size:12px;border:1px solid #BFE6FF}
+    footer{margin:28px 0 8px;text-align:center;color:var(--ink-500);font-size:12px}
+    .note{margin-top:16px;text-align:center;font-size:12px;color:var(--ink-500)}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border:1px dashed var(--ink-300);border-radius:14px;color:var(--ink-700)}
+    @media (prefers-color-scheme: dark){
+      :root{--bg:#0B1120;--card:#0F172A;--ink-900:#E5E7EB;--ink-700:#CBD5E1;--ink-500:#94A3B8;--ink-300:#334155}
+      .input,.select{background:#0B1120;color:var(--ink-900)}
+      .pill{background:#0B1120}
+      .badge{background:rgba(0,149,255,.15);border-color:rgba(0,149,255,.25)}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Blip: Equipo APIN — LATAM</h1>
+    <p class="subtitle">Transformamos datos en decisiones con propósito</p>
 
+    <div class="toolbar">
+      <input id="q" class="input" placeholder="Buscar por nombre, rol o ubicación…">
+      <select id="z" class="select">
+        <option value="">Todos los signos</option>
+        <option>♈ Aries</option><option>♉ Tauro</option><option>♊ Géminis</option><option>♋ Cáncer</option>
+        <option>♌ Leo</option><option>♍ Virgo</option><option>♎ Libra</option><option>♏ Escorpio</option>
+        <option>♐ Sagitario</option><option>♑ Capricornio</option><option>♒ Acuario</option><option>♓ Piscis</option>
+      </select>
+      <button id="clear" class="button">Limpiar filtros</button>
+    </div>
+
+    <div id="grid" class="grid"></div>
+
+    <p class="note">
+      <span class="pill">🎨 Paleta lista: si tienes otros HEX de Blip, reemplázalos en <code>:root</code>.</span>
+    </p>
+
+    <footer>Hecho con 💙 por Betsy & APIN</footer>
+  </div>
+
+  <script>
+    // === DATASET ===
+    const TEAM = [
+      {
+        name: "Ariana González Pablo",
+        role: "Analista de Datos APIN",
+        birthday: "1996-11-08",
+        zodiac: "♏ Escorpio",
+        location: "Toluca, Edo. Méx.",
+        superpower: "Escuchar y conectar con las personas",
+        mantra: "Tú puedes",
+        energy: "💚 Verde (confianza y calma)",
+        funFact: "Vive sola con sus dos gatitas: Bixy y Tofu 🐱🐱",
+        photo: "" // ej: "fotos/ariana.jpg"
+      },
+      {
+        name: "Yuritzi Medina Guerra",
+        role: "Analista Sr. de Performance e Inteligencia de Negocios",
+        birthday: "1995-12-22",
+        zodiac: "♑ Capricornio",
+        location: "Temascalapa, Edo. Méx.",
+        superpower: "Romper los bots (para mejorarlos después 😎)",
+        mantra: "En unos años no va a importar",
+        energy: "🔵 Azul (calma y fuerza)",
+        funFact: "Tiene 1 gatita (Susy) y 5 perritos 🐶",
+        photo: ""
+      },
+      {
+        name: "César Ulises Zapata Miramontes",
+        role: "Especialista BI",
+        birthday: "1995-06-23",
+        zodiac: "♋ Cáncer",
+        location: "CDMX, Azcapotzalco",
+        superpower: "Aprender bajo presión sin rendirse",
+        mantra: "La vida no es deporte de mirones",
+        energy: "⚫ Negra (fuerza tranquila y reflexiva)",
+        funFact: "Tiene un perro llamado Kovu 🐕",
+        photo: ""
+      }
+    ];
+
+    // === HELPERS ===
+    function formatBirthday(iso){
+      const d = new Date(iso + 'T00:00:00');
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const yyyy = d.getFullYear();
+      return `${dd}/${mm}/${yyyy}`;
+    }
+    const AVATAR_SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+      <svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'>
+        <defs>
+          <linearGradient id='g' x1='0' x2='1'>
+            <stop offset='0%' stop-color='%230095FF'/>
+            <stop offset='100%' stop-color='%2300B2FF'/>
+          </linearGradient>
+        </defs>
+        <rect width='120' height='120' rx='18' fill='url(%23g)'/>
+        <circle cx='60' cy='46' r='20' fill='white' fill-opacity='.92'/>
+        <rect x='22' y='74' width='76' height='28' rx='14' fill='white' fill-opacity='.92'/>
+      </svg>
+    `);
+
+    // === RENDER ===
+    const $grid = document.getElementById('grid');
+    function render(list){
+      $grid.innerHTML = '';
+      list.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const hero = document.createElement('div');
+        hero.className = 'hero';
+
+        const photo = document.createElement('div');
+        photo.className = 'photo';
+        const img = document.createElement('img');
+        img.alt = m.name;
+        img.src = m.photo ? m.photo : AVATAR_SVG;
+        photo.appendChild(img);
+        hero.appendChild(photo);
+
+        const content = document.createElement('div');
+        content.className = 'content';
+
+        const name = document.createElement('h3');
+        name.className = 'name';
+        name.textContent = m.name;
+
+        const role = document.createElement('div');
+        role className = 'role';
+        role.textContent = m.role;
+
+        const kvs = [
+          ['🎂 Cumpleaños', formatBirthday(m.birthday)],
+          ['♈ Signo', m.zodiac],
+          ['📍 Ubicación', m.location],
+          ['🦸‍♀️ Superpoder', m.superpower],
+          ['💬 Mantra', '“' + m.mantra + '”'],
+          ['🎨 Energía', m.energy],
+          ['✨ Fun fact', m.funFact],
+        ];
+        const frag = document.createDocumentFragment();
+        kvs.forEach(([k,v])=>{
+          const p = document.createElement('p');
+          p.className = 'kv';
+          const b = document.createElement('strong');
+          b.textContent = k + ': ';
+          p.appendChild(b);
+          p.appendChild(document.createTextNode(v));
+          frag.appendChild(p);
+        });
+
+        const badges = document.createElement('div');
+        badges.className = 'badges';
+        ['APIN LATAM','Datos','Personas'].forEach(t=>{
+          const s = document.createElement('span');
+          s.className = 'badge';
+          s.textContent = t;
+          badges.appendChild(s);
+        });
+
+        content.appendChild(name);
+        content.appendChild(role);
+        content.appendChild(frag);
+        content.appendChild(badges);
+
+        card.appendChild(hero);
+        card.appendChild(content);
+        $grid.appendChild(card);
+      });
+    }
+
+    // === FILTERING ===
+    const $q = document.getElementById('q');
+    const $z = document.getElementById('z');
+    const $clear = document.getElementById('clear');
+
+    function applyFilters(){
+      const q = ($q.value||'').toLowerCase().trim();
+      const z = ($z.value||'').toLowerCase().trim();
+      const out = TEAM.filter(m=>{
+        const haystack = (m.name + ' ' + m.role + ' ' + m.location).toLowerCase();
+        const okQ = q ? haystack.includes(q) : true;
+        const okZ = z ? m.zodiac.toLowerCase().includes(z) : true;
+        return okQ && okZ;
+      });
+      render(out);
+    }
+
+    $q.addEventListener('input', applyFilters);
+    $z.addEventListener('change', applyFilters);
+    $clear.addEventListener('click', ()=>{$q.value=''; $z.value=''; applyFilters()});
+
+    // first render
+    render(TEAM);
+  </script>
+</body>
+</html>
