@@ -6,28 +6,21 @@
   <title>Blip · Equipo APIN LATAM</title>
   <style>
     :root{
-      --blip-primary:#0095FF;     /* Azul principal */
-      --blip-primary-600:#0072CC; /* Azul oscuro */
-      --blip-secondary:#00B2FF;   /* Azul claro */
-      --ink-900:#000000;
-      --ink-800:#111827;
-      --ink-700:#444444;
-      --ink-500:#707070;
-      --ink-300:#D1D5DB;
-      --bg:#FFFFFF;
-      --card:#F7F9FA;
+      --blip-primary:#0095FF;--blip-secondary:#00B2FF;--blip-primary-600:#0072CC;
+      --ink-900:#000;--ink-800:#111827;--ink-700:#444;--ink-500:#707070;
+      --bg:#fff;--card:#F7F9FA;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink-900);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
     h1,h2,h3{margin:0}
 
-    /* PORTADA */
+    /* Portada */
     .hero{background:#000;color:#fff;padding:28px 0 36px}
     .hero-inner{max-width:1100px;margin:0 auto;padding:0 24px}
     .hero-title{font-weight:900;font-size:clamp(26px,4.6vw,44px);line-height:1.1}
     .hero-sub{color:#e5f2ff;margin-top:10px;max-width:860px}
 
-    /* Contenedor común */
+    /* Contenedor */
     .container{max-width:1100px;margin:0 auto;padding:24px}
 
     /* PMV */
@@ -37,34 +30,28 @@
     .pmv .box h3{color:var(--blip-primary);font-size:18px;margin-bottom:8px}
     .pmv .box p{color:var(--ink-700);font-size:15px;margin:0}
 
-    /* Grid de cards */
+    /* Grid equipo */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:28px}
-    .card{background:var(--card);border-radius:18px;box-shadow:0 8px 24px rgba(17,24,39,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease;border:1px solid #eef2f5}
+    .card{background:var(--card);border-radius:18px;box-shadow:0 8px 24px rgba(17,24,39,.06);overflow:hidden;display:flex;flex-direction:column;border:1px solid #eef2f5;transition:transform .18s ease, box-shadow .18s ease}
     .card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(17,24,39,.10)}
 
-    /* Encabezado visual con carrusel */
+    /* Carrusel */
     .hero-img{height:180px;background:linear-gradient(100deg,var(--blip-primary),var(--blip-secondary));position:relative;overflow:hidden}
-    .slide{
-      position:absolute;inset:0;width:100%;height:100%;
-      object-fit:cover;opacity:0;transition:opacity 2s ease-in-out; /* fade 2s */
-    }
+    .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2s ease-in-out}
     .slide.active{opacity:1}
 
-    /* Contenido de la card */
-    .content{padding:16px 16px 18px 16px}
+    /* Contenido */
+    .content{padding:16px 16px 18px}
     .name{color:var(--blip-primary);font-weight:900;font-size:18px}
     .role{color:var(--ink-500);margin-top:2px;font-size:14px}
     .kv{margin:6px 0;font-size:14px;color:var(--ink-700)}
     .kv strong{color:var(--ink-900)}
-    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .badge{background:#E6F4FF;color:var(--blip-primary);font-weight:700;border-radius:999px;padding:6px 10px;font-size:12px;border:1px solid #BFE6FF}
 
-    /* Bloques profesionales */
-    .pro{margin-top:10px;background:#fff;border:1px dashed #e2e8f0;border-radius:12px;padding:10px}
-    .pro h4{margin:0 0 6px 0;color:var(--ink-800);font-size:14px}
-    .list{margin:0;padding-left:18px;color:var(--ink-700);font-size:14px}
-    .tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .tool{border:1px solid #e5e7eb;padding:4px 8px;border-radius:8px;font-size:12px;color:#334155;background:#fff}
+    /* Especialidades tipo “🔥 …” */
+    .skills{margin-top:10px;padding:10px;background:#fff;border:1px dashed #e2e8f0;border-radius:12px}
+    .skills h4{margin:0 0 8px 0;color:var(--ink-800);font-size:14px}
+    .skills ul{margin:0;padding-left:18px}
+    .skills li{margin:4px 0;color:var(--ink-700);font-size:14px}
   </style>
 </head>
 <body>
@@ -80,7 +67,7 @@
     </div>
   </section>
 
-  <!-- PROPÓSITO / MISIÓN / VALORES -->
+  <!-- PMV -->
   <section class="container">
     <h2 class="section-title">Propósito, misión y valores</h2>
     <div class="pmv">
@@ -106,76 +93,61 @@
   </section>
 
   <script>
-    /* ========= CONFIG ========= */
-    const EXT = '.png';           // Usa .png, ej.: img/Ariana1.png
-    const INTERVAL_MS = 150000;   // 2.5 minutos
+    /* ================= CONFIG ================= */
+    const EXT = '.png';          // Usa .png como me pasaste (ej: img/Ariana1.png)
+    const INTERVAL_MS = 2500;    // Para que veas que rota. Para 2.5 min: 150000
     const FADE_CLASS = 'active';
 
-    /* ========= DATA ========= */
+    /* ================= DATA =================== */
     const TEAM = [
       {
-        key: 'ariana',
-        name: "Ariana González Pablo",
-        role: "Analista de Datos APIN",
-        birthday: "1996-11-08",
-        zodiac: "♏ Escorpio",
-        location: "Toluca, Edo. Méx.",
-        superpower: "Escuchar y conectar con las personas",
-        mantra: "Tú puedes",
-        energy: "💚 Verde (confianza y calma)",
-        pets: "Bixy y Tofu (gatitas) 🐱🐱",
-        photos: ["img/Ariana1","img/Ariana2","img/Ariana3","img/Ariana4","img/Ariana5","img/Ariana6","img/Ariana7","img/Ariana8","img/Ariana9"],
-        pro: {
-          especialidad: "Minería de datos, trazabilidad y dashboards",
-          herramientas: ["Power BI","Databricks","Elasticsearch","SQL","Zoho CRM"],
-          proyectosBlip: ["Quálitas","Mattilda","Kueski"],
-          proyectos: ["Estandarización de documentación LATAM","Dashboards estratégicos de performance"],
-          kpis: ["Tiempo de entrega ↓","Adopción de tableros ↑","Incidencias sin trazabilidad ↓"]
-        }
+        key:'ariana',
+        name:"Ariana González Pablo",
+        role:"Analista de Datos APIN",
+        birthday:"1996-11-08",
+        zodiac:"♏ Escorpio",
+        location:"Toluca, Edo. Méx.",
+        superpower:"Escuchar y conectar con las personas",
+        mantra:"Tú puedes",
+        energy:"💚 Verde (confianza y calma)",
+        pets:"Bixy y Tofu (gatitas) 🐱🐱",
+        photos:["img/Ariana1","img/Ariana2","img/Ariana3","img/Ariana4","img/Ariana5","img/Ariana6","img/Ariana7","img/Ariana8","img/Ariana9"],
+        skills:["CRM Analyst","MKT Analyst","Call Center Analyst"],
+        blipProjects:["Quálitas","Mattilda","Kueski"] // (visible si lo quieres arriba/abajo)
       },
       {
-        key: 'yuri',
-        name: "Yuritzi Medina Guerra",
-        role: "Analista Sr. de Performance e Inteligencia de Negocios",
-        birthday: "1995-12-22",
-        zodiac: "♑ Capricornio",
-        location: "Temascalapa, Edo. Méx.",
-        superpower: "Romper los bots (para mejorarlos después 😎)",
-        mantra: "En unos años no va a importar",
-        energy: "🔵 Azul (calma y fuerza)",
-        pets: "Susy (gatita) + 5 perritos 🐶",
-        photos: ["img/Yuri1","img/Yuri2","img/Yuri3","img/Yuri4","img/Yuri5","img/Yuri6","img/Yuri7"],
-        pro: {
-          especialidad: "Modelado de datos, seguridad y visualización",
-          herramientas: ["Databricks","Power BI","Elastic","Azure DevOps","Jira","SQL"],
-          proyectosBlip: ["Viva","Chubb","Cinépolis"],
-          proyectos: ["Mapeos técnicos DataFlow LATAM","Mejora de seguridad y field mappings"],
-          kpis: ["Campos críticos completos ↑","Errores de esquema ↓","SLAs de ticketing ↘"]
-        }
+        key:'yuri',
+        name:"Yuritzi Medina Guerra",
+        role:"Analista Sr. de Performance e Inteligencia de Negocios",
+        birthday:"1995-12-22",
+        zodiac:"♑ Capricornio",
+        location:"Temascalapa, Edo. Méx.",
+        superpower:"Romper los bots (para mejorarlos después 😎)",
+        mantra:"En unos años no va a importar",
+        energy:"🔵 Azul (calma y fuerza)",
+        pets:"Susy (gatita) + 5 perritos 🐶",
+        photos:["img/Yuri1","img/Yuri2","img/Yuri3","img/Yuri4","img/Yuri5","img/Yuri6","img/Yuri7"],
+        skills:["Systems Analyst","Cyber Security Analyst","SCRUM Analyst"],
+        blipProjects:["Viva","Chubb","Cinépolis"]
       },
       {
-        key: 'cesar',
-        name: "César Ulises Zapata Miramontes",
-        role: "Especialista BI",
-        birthday: "1995-06-23",
-        zodiac: "♋ Cáncer",
-        location: "CDMX, Azcapotzalco",
-        superpower: "Aprender bajo presión sin rendirse",
-        mantra: "La vida no es deporte de mirones",
-        energy: "⚫ Negra (fuerza tranquila y reflexiva)",
-        pets: "Kovu (perrito) 🐕",
-        photos: ["img/Cesar1","img/Cesar2","img/Cesar3","img/Cesar4","img/Cesar5","img/Cesar6"],
-        pro: {
-          especialidad: "Automatización, ETL y KPIs financieros",
-          herramientas: ["Power BI","SSIS/Pentaho","SQL","Python","R"],
-          proyectosBlip: ["Principal","SURA","Findep"],
-          proyectos: ["Pipelines ETL de reporting","KPIs de conversión y revenue"],
-          kpis: ["Tiempos de refresh ↘","Calidad de dato ↑","Cobertura de KPIs ↑"]
-        }
+        key:'cesar',
+        name:"César Ulises Zapata Miramontes",
+        role:"Especialista BI",
+        birthday:"1995-06-23",
+        zodiac:"♋ Cáncer",
+        location:"CDMX, Azcapotzalco",
+        superpower:"Aprender bajo presión sin rendirse",
+        mantra:"La vida no es deporte de mirones",
+        energy:"⚫ Negra (fuerza tranquila y reflexiva)",
+        pets:"Kovu (perrito) 🐕",
+        photos:["img/Cesar1","img/Cesar2","img/Cesar3","img/Cesar4","img/Cesar5","img/Cesar6"],
+        skills:["Statistician","Data engineer","Programmer"],
+        blipProjects:["Principal","SURA","Findep"]
       }
     ];
 
-    /* ======== HELPERS ======== */
+    /* ============== HELPERS =================== */
     function formatBirthday(iso){
       const d = new Date(iso + 'T00:00:00');
       const dd = String(d.getDate()).padStart(2,'0');
@@ -183,107 +155,116 @@
       const yyyy = d.getFullYear();
       return `${dd}/${mm}/${yyyy}`;
     }
-    function preload(srcs){ srcs.forEach(s => { const im = new Image(); im.src = s; }); }
 
-    /* ======== RENDER ======== */
+    function preload(srcs){
+      srcs.forEach(s=>{
+        const im = new Image();
+        im.onerror = ()=>console.warn('No se encontró imagen:', s);
+        im.src = s;
+      });
+    }
+
+    /* ============== RENDER ===================== */
     const $grid = document.getElementById('grid');
 
-    function createCarousel(imgContainer, sources){
+    function createCarousel(container, srcBaseList){
+      // construye lista con extensión y precarga
+      const sources = (srcBaseList||[]).map(s => s + EXT);
+      if (!sources.length){
+        // placeholder SVG degradado Blip
+        const ph = document.createElement('img');
+        ph.className = 'slide active';
+        ph.src = 'data:image/svg+xml;utf8,'+encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+            <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0%" stop-color="#0095FF"/><stop offset="100%" stop-color="#00B2FF"/></linearGradient></defs>
+            <rect width="600" height="300" fill="url(#g)"/>
+          </svg>
+        `);
+        container.appendChild(ph);
+        return;
+      }
+      preload(sources);
+
       const a = document.createElement('img');
       const b = document.createElement('img');
-      a.className = 'slide ' + FADE_CLASS;
+      a.className = 'slide active';
       b.className = 'slide';
+      let idx = 0, showingA = true, timer=null;
 
-      let idx = 0, showingA = true, timer = null;
-      a.src = sources[0] ? sources[0] + EXT : '';
-      b.src = sources[1] ? sources[1] + EXT : (sources[0] ? sources[0] + EXT : '');
+      const setSafeSrc = (img, src) => {
+        img.onerror = ()=>{ console.warn('No se encontró imagen:', src); };
+        img.src = src;
+      };
 
-      imgContainer.appendChild(a);
-      imgContainer.appendChild(b);
+      setSafeSrc(a, sources[0]);
+      setSafeSrc(b, sources.length>1 ? sources[1] : sources[0]);
+
+      container.appendChild(a);
+      container.appendChild(b);
+
       if (sources.length <= 1) return;
 
-      const tick = () => {
+      const tick = ()=>{
         idx = (idx + 1) % sources.length;
-        const nextSrc = sources[idx] + EXT;
-        if (showingA) {
-          b.src = nextSrc;
-          b.onload = () => { a.classList.remove(FADE_CLASS); b.classList.add(FADE_CLASS); showingA = false; };
-        } else {
-          a.src = nextSrc;
-          a.onload = () => { b.classList.remove(FADE_CLASS); a.classList.add(FADE_CLASS); showingA = true; };
+        const next = sources[idx];
+        if (showingA){
+          setSafeSrc(b, next);
+          b.onload = ()=>{ a.classList.remove('active'); b.classList.add('active'); showingA=false; };
+        }else{
+          setSafeSrc(a, next);
+          a.onload = ()=>{ b.classList.remove('active'); a.classList.add('active'); showingA=true; };
         }
       };
-      const start = () => { timer = setInterval(tick, INTERVAL_MS); };
-      const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };
+
+      const start = ()=>{ timer = setInterval(tick, INTERVAL_MS); };
+      const stop  = ()=>{ if (timer){ clearInterval(timer); timer=null; } };
 
       start();
-      imgContainer.addEventListener('mouseenter', stop);
-      imgContainer.addEventListener('mouseleave', () => { if (!timer) start(); });
+      container.addEventListener('mouseenter', stop);
+      container.addEventListener('mouseleave', ()=>{ if (!timer) start(); });
     }
 
     function createCard(m){
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Header con carrusel
       const hero = document.createElement('div');
       hero.className = 'hero-img';
-      const sources = (m.photos || []);
-      preload(sources.map(s => s + EXT));
-      createCarousel(hero, sources);
+      createCarousel(hero, m.photos);
 
-      // Contenido
       const content = document.createElement('div'); content.className = 'content';
       const name = document.createElement('h3'); name.className = 'name'; name.textContent = m.name;
       const role = document.createElement('div'); role.className = 'role'; role.textContent = m.role;
 
-      const kvs = [
+      const info = [
         ['🎂 Cumpleaños', formatBirthday(m.birthday)],
         ['♈ Signo', m.zodiac],
         ['📍 Ubicación', m.location],
         ['🦸‍♀️ Superpoder', m.superpower],
-        ['💬 Mantra', '“' + m.mantra + '”'],
+        ['💬 Mantra', '“'+m.mantra+'”'],
         ['🎨 Energía', m.energy],
         ['🐾 Animalitos', m.pets],
       ];
       const frag = document.createDocumentFragment();
-      kvs.forEach(([k,v])=>{
+      info.forEach(([k,v])=>{
         const p = document.createElement('p'); p.className = 'kv';
-        const b = document.createElement('strong'); b.textContent = k + ': ';
+        const b = document.createElement('strong'); b.textContent = k+': ';
         p.appendChild(b); p.appendChild(document.createTextNode(v)); frag.appendChild(p);
       });
 
-      // Profesional
-      const pro = document.createElement('div'); pro.className = 'pro';
-      const ph = document.createElement('h4'); ph.textContent = 'Perfil profesional';
-      const p1 = document.createElement('p'); p1.className = 'kv';
-      p1.innerHTML = `<strong>Especialidad:</strong> ${m.pro.especialidad}`;
-      const tools = document.createElement('div'); tools.className = 'tools';
-      (m.pro.herramientas || []).forEach(t => { const s = document.createElement('span'); s.className = 'tool'; s.textContent = t; tools.appendChild(s); });
-      const pBlip = document.createElement('p'); pBlip.className = 'kv';
-      pBlip.innerHTML = '<strong>Algunos proyectos en Blip:</strong> ' + (m.pro.proyectosBlip || []).join(', ');
-      const p2 = document.createElement('p'); p2.className = 'kv'; p2.innerHTML = '<strong>Proyectos:</strong>';
-      const ul = document.createElement('ul'); ul.className = 'list';
-      (m.pro.proyectos || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
-      const p3 = document.createElement('p'); p3.className = 'kv'; p3.innerHTML = '<strong>Enfoque/KPIs:</strong>';
-      const ul2 = document.createElement('ul'); ul2.className = 'list';
-      (m.pro.kpis || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul2.appendChild(li); });
-
-      pro.appendChild(ph); pro.appendChild(p1); pro.appendChild(tools);
-      pro.appendChild(pBlip); pro.appendChild(p2); pro.appendChild(ul);
-      pro.appendChild(p3); pro.appendChild(ul2);
-
-      // Badges (puedes editar o quitar)
-      const badges = document.createElement('div'); badges.className = 'badges';
-      ['APIN LATAM','Datos','Personas'].forEach(t=>{
-        const s = document.createElement('span'); s.className = 'badge'; s.textContent = t; badges.appendChild(s);
+      // Especialidades (🔥 …)
+      const skills = document.createElement('div'); skills.className = 'skills';
+      const sh = document.createElement('h4'); sh.textContent = 'Especialidades';
+      const ul = document.createElement('ul');
+      (m.skills||[]).forEach(s=>{
+        const li = document.createElement('li'); li.textContent = `🔥 ${s}`; ul.appendChild(li);
       });
+      skills.appendChild(sh); skills.appendChild(ul);
 
       content.appendChild(name);
       content.appendChild(role);
       content.appendChild(frag);
-      content.appendChild(pro);
-      content.appendChild(badges);
+      content.appendChild(skills);
 
       card.appendChild(hero);
       card.appendChild(content);
@@ -291,7 +272,6 @@
     }
 
     function renderTeam(){
-      const $grid = document.getElementById('grid');
       $grid.innerHTML = '';
       TEAM.forEach(m => $grid.appendChild(createCard(m)));
     }
