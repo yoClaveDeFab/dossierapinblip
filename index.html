@@ -6,29 +6,26 @@
   <title>Blip · Equipo APIN LATAM</title>
   <style>
     :root{
-      /* Paleta Blip */
-      --blip-primary: #0095FF;     /* Azul principal */
-      --blip-primary-600:#0072CC;  /* Azul oscuro */
-      --blip-secondary: #00B2FF;   /* Azul claro */
-      --ink-900:#000000;           /* Negro */
+      --blip-primary:#0095FF;     /* Azul principal */
+      --blip-primary-600:#0072CC; /* Azul oscuro */
+      --blip-secondary:#00B2FF;   /* Azul claro */
+      --ink-900:#000000;
       --ink-800:#111827;
-      --ink-700:#444444;           /* Gris texto */
-      --ink-500:#707070;           /* Gris medio */
-      --ink-300:#D1D5DB;           /* Gris claro */
-      --bg:#FFFFFF;                /* Fondo */
-      --card:#F7F9FA;              /* Tarjetas */
+      --ink-700:#444444;
+      --ink-500:#707070;
+      --ink-300:#D1D5DB;
+      --bg:#FFFFFF;
+      --card:#F7F9FA;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink-900);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
     h1,h2,h3{margin:0}
 
-    /* PORTADA (hero) */
+    /* PORTADA */
     .hero{background:#000;color:#fff;padding:28px 0 36px}
     .hero-inner{max-width:1100px;margin:0 auto;padding:0 24px}
     .hero-title{font-weight:900;font-size:clamp(26px,4.6vw,44px);line-height:1.1}
     .hero-sub{color:#e5f2ff;margin-top:10px;max-width:860px}
-    .hero-band{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
-    .chip{background:#0b2540;border:1px solid #1a3a5a;color:#cfeaff;padding:6px 10px;border-radius:999px;font-size:12px}
 
     /* Contenedor común */
     .container{max-width:1100px;margin:0 auto;padding:24px}
@@ -49,9 +46,9 @@
     .hero-img{height:180px;background:linear-gradient(100deg,var(--blip-primary),var(--blip-secondary));position:relative;overflow:hidden}
     .slide{
       position:absolute;inset:0;width:100%;height:100%;
-      object-fit:cover;opacity:0;transition:opacity 2s ease-in-out; /* FADE 2s */
+      object-fit:cover;opacity:0;transition:opacity 2s ease-in-out; /* fade 2s */
     }
-    .slide.active{opacity:1} /* Opacidad final completa */
+    .slide.active{opacity:1}
 
     /* Contenido de la card */
     .content{padding:16px 16px 18px 16px}
@@ -62,7 +59,7 @@
     .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .badge{background:#E6F4FF;color:var(--blip-primary);font-weight:700;border-radius:999px;padding:6px 10px;font-size:12px;border:1px solid #BFE6FF}
 
-    /* Bloque profesional */
+    /* Bloques profesionales */
     .pro{margin-top:10px;background:#fff;border:1px dashed #e2e8f0;border-radius:12px;padding:10px}
     .pro h4{margin:0 0 6px 0;color:var(--ink-800);font-size:14px}
     .list{margin:0;padding-left:18px;color:var(--ink-700);font-size:14px}
@@ -80,13 +77,6 @@
         Conectamos datos, producto y negocio para tomar decisiones con impacto.
         Integramos Databricks, Elastic y BI para dar trazabilidad de punta a punta.
       </p>
-      <div class="hero-band">
-        <span class="chip">DataFlow</span>
-        <span class="chip">Elastic/Kibana</span>
-        <span class="chip">Power BI</span>
-        <span class="chip">Automatización ETL</span>
-        <span class="chip">Documentación & Trazabilidad</span>
-      </div>
     </div>
   </section>
 
@@ -117,9 +107,9 @@
 
   <script>
     /* ========= CONFIG ========= */
-    const EXT = '.jpg';           // Cambia a '.png' si tus imágenes son PNG
-    const INTERVAL_MS = 150000;   // 2.5 minutos por tu pedido
-    const FADE_CLASS = 'active';  // Clase que controla el fade
+    const EXT = '.png';           // Usa .png, ej.: img/Ariana1.png
+    const INTERVAL_MS = 150000;   // 2.5 minutos
+    const FADE_CLASS = 'active';
 
     /* ========= DATA ========= */
     const TEAM = [
@@ -133,15 +123,13 @@
         superpower: "Escuchar y conectar con las personas",
         mantra: "Tú puedes",
         energy: "💚 Verde (confianza y calma)",
-        funFact: "Vive sola con sus dos gatitas: Bixy y Tofu 🐱🐱",
+        pets: "Bixy y Tofu (gatitas) 🐱🐱",
         photos: ["img/Ariana1","img/Ariana2","img/Ariana3","img/Ariana4","img/Ariana5","img/Ariana6","img/Ariana7","img/Ariana8","img/Ariana9"],
         pro: {
           especialidad: "Minería de datos, trazabilidad y dashboards",
           herramientas: ["Power BI","Databricks","Elasticsearch","SQL","Zoho CRM"],
-          proyectos: [
-            "Estandarización de documentación LATAM",
-            "Dashboards estratégicos de performance"
-          ],
+          proyectosBlip: ["Quálitas","Mattilda","Kueski"],
+          proyectos: ["Estandarización de documentación LATAM","Dashboards estratégicos de performance"],
           kpis: ["Tiempo de entrega ↓","Adopción de tableros ↑","Incidencias sin trazabilidad ↓"]
         }
       },
@@ -155,15 +143,13 @@
         superpower: "Romper los bots (para mejorarlos después 😎)",
         mantra: "En unos años no va a importar",
         energy: "🔵 Azul (calma y fuerza)",
-        funFact: "Tiene 1 gatita (Susy) y 5 perritos 🐶",
+        pets: "Susy (gatita) + 5 perritos 🐶",
         photos: ["img/Yuri1","img/Yuri2","img/Yuri3","img/Yuri4","img/Yuri5","img/Yuri6","img/Yuri7"],
         pro: {
           especialidad: "Modelado de datos, seguridad y visualización",
           herramientas: ["Databricks","Power BI","Elastic","Azure DevOps","Jira","SQL"],
-          proyectos: [
-            "Mapeos técnicos DataFlow LATAM",
-            "Mejora de seguridad y field mappings"
-          ],
+          proyectosBlip: ["Viva","Chubb","Cinépolis"],
+          proyectos: ["Mapeos técnicos DataFlow LATAM","Mejora de seguridad y field mappings"],
           kpis: ["Campos críticos completos ↑","Errores de esquema ↓","SLAs de ticketing ↘"]
         }
       },
@@ -177,15 +163,13 @@
         superpower: "Aprender bajo presión sin rendirse",
         mantra: "La vida no es deporte de mirones",
         energy: "⚫ Negra (fuerza tranquila y reflexiva)",
-        funFact: "Tiene un perro llamado Kovu 🐕",
+        pets: "Kovu (perrito) 🐕",
         photos: ["img/Cesar1","img/Cesar2","img/Cesar3","img/Cesar4","img/Cesar5","img/Cesar6"],
         pro: {
           especialidad: "Automatización, ETL y KPIs financieros",
           herramientas: ["Power BI","SSIS/Pentaho","SQL","Python","R"],
-          proyectos: [
-            "Pipelines ETL de reporting",
-            "KPIs de conversión y revenue"
-          ],
+          proyectosBlip: ["Principal","SURA","Findep"],
+          proyectos: ["Pipelines ETL de reporting","KPIs de conversión y revenue"],
           kpis: ["Tiempos de refresh ↘","Calidad de dato ↑","Cobertura de KPIs ↑"]
         }
       }
@@ -199,107 +183,97 @@
       const yyyy = d.getFullYear();
       return `${dd}/${mm}/${yyyy}`;
     }
-
-    function preload(srcs){
-      srcs.forEach(s => { const im = new Image(); im.src = s; });
-    }
+    function preload(srcs){ srcs.forEach(s => { const im = new Image(); im.src = s; }); }
 
     /* ======== RENDER ======== */
     const $grid = document.getElementById('grid');
 
     function createCarousel(imgContainer, sources){
-      // Dos capas para crossfade
       const a = document.createElement('img');
       const b = document.createElement('img');
       a.className = 'slide ' + FADE_CLASS;
       b.className = 'slide';
 
       let idx = 0, showingA = true, timer = null;
-      a.src = sources[0] || '';
-      b.src = sources.length > 1 ? sources[1] : sources[0] || '';
+      a.src = sources[0] ? sources[0] + EXT : '';
+      b.src = sources[1] ? sources[1] + EXT : (sources[0] ? sources[0] + EXT : '');
 
       imgContainer.appendChild(a);
       imgContainer.appendChild(b);
-
-      if (sources.length <= 1) return; // sin carrusel si hay 0/1 imagen
+      if (sources.length <= 1) return;
 
       const tick = () => {
         idx = (idx + 1) % sources.length;
+        const nextSrc = sources[idx] + EXT;
         if (showingA) {
-          b.src = sources[idx];
+          b.src = nextSrc;
           b.onload = () => { a.classList.remove(FADE_CLASS); b.classList.add(FADE_CLASS); showingA = false; };
         } else {
-          a.src = sources[idx];
+          a.src = nextSrc;
           a.onload = () => { b.classList.remove(FADE_CLASS); a.classList.add(FADE_CLASS); showingA = true; };
         }
       };
-
       const start = () => { timer = setInterval(tick, INTERVAL_MS); };
       const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };
 
-      // Iniciar y pausar en hover
       start();
       imgContainer.addEventListener('mouseenter', stop);
       imgContainer.addEventListener('mouseleave', () => { if (!timer) start(); });
     }
 
-    function createCard(member){
+    function createCard(m){
       const card = document.createElement('div');
       card.className = 'card';
 
       // Header con carrusel
       const hero = document.createElement('div');
       hero.className = 'hero-img';
-      const sources = (member.photos || []).map(p => p + EXT);
-      preload(sources);
+      const sources = (m.photos || []);
+      preload(sources.map(s => s + EXT));
       createCarousel(hero, sources);
 
       // Contenido
       const content = document.createElement('div'); content.className = 'content';
-      const name = document.createElement('h3'); name.className = 'name'; name.textContent = member.name;
-      const role = document.createElement('div'); role.className = 'role'; role.textContent = member.role;
+      const name = document.createElement('h3'); name.className = 'name'; name.textContent = m.name;
+      const role = document.createElement('div'); role.className = 'role'; role.textContent = m.role;
 
       const kvs = [
-        ['🎂 Cumpleaños', formatBirthday(member.birthday)],
-        ['♈ Signo', member.zodiac],
-        ['📍 Ubicación', member.location],
-        ['🦸‍♀️ Superpoder', member.superpower],
-        ['💬 Mantra', '“' + member.mantra + '”'],
-        ['🎨 Energía', member.energy],
-        ['✨ Fun fact', member.funFact],
+        ['🎂 Cumpleaños', formatBirthday(m.birthday)],
+        ['♈ Signo', m.zodiac],
+        ['📍 Ubicación', m.location],
+        ['🦸‍♀️ Superpoder', m.superpower],
+        ['💬 Mantra', '“' + m.mantra + '”'],
+        ['🎨 Energía', m.energy],
+        ['🐾 Animalitos', m.pets],
       ];
-
       const frag = document.createDocumentFragment();
       kvs.forEach(([k,v])=>{
-        const p = document.createElement('p');
-        p.className = 'kv';
-        const b = document.createElement('strong');
-        b.textContent = k + ': ';
-        p.appendChild(b);
-        p.appendChild(document.createTextNode(v));
-        frag.appendChild(p);
+        const p = document.createElement('p'); p.className = 'kv';
+        const b = document.createElement('strong'); b.textContent = k + ': ';
+        p.appendChild(b); p.appendChild(document.createTextNode(v)); frag.appendChild(p);
       });
 
-      // Bloque profesional
+      // Profesional
       const pro = document.createElement('div'); pro.className = 'pro';
       const ph = document.createElement('h4'); ph.textContent = 'Perfil profesional';
       const p1 = document.createElement('p'); p1.className = 'kv';
-      p1.innerHTML = `<strong>Especialidad:</strong> ${member.pro.especialidad}`;
+      p1.innerHTML = `<strong>Especialidad:</strong> ${m.pro.especialidad}`;
       const tools = document.createElement('div'); tools.className = 'tools';
-      (member.pro.herramientas || []).forEach(t => {
-        const s = document.createElement('span'); s.className = 'tool'; s.textContent = t; tools.appendChild(s);
-      });
+      (m.pro.herramientas || []).forEach(t => { const s = document.createElement('span'); s.className = 'tool'; s.textContent = t; tools.appendChild(s); });
+      const pBlip = document.createElement('p'); pBlip.className = 'kv';
+      pBlip.innerHTML = '<strong>Algunos proyectos en Blip:</strong> ' + (m.pro.proyectosBlip || []).join(', ');
       const p2 = document.createElement('p'); p2.className = 'kv'; p2.innerHTML = '<strong>Proyectos:</strong>';
       const ul = document.createElement('ul'); ul.className = 'list';
-      (member.pro.proyectos || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+      (m.pro.proyectos || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
       const p3 = document.createElement('p'); p3.className = 'kv'; p3.innerHTML = '<strong>Enfoque/KPIs:</strong>';
       const ul2 = document.createElement('ul'); ul2.className = 'list';
-      (member.pro.kpis || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul2.appendChild(li); });
+      (m.pro.kpis || []).forEach(x => { const li = document.createElement('li'); li.textContent = x; ul2.appendChild(li); });
 
-      pro.appendChild(ph); pro.appendChild(p1); pro.appendChild(tools); pro.appendChild(p2); pro.appendChild(ul);
+      pro.appendChild(ph); pro.appendChild(p1); pro.appendChild(tools);
+      pro.appendChild(pBlip); pro.appendChild(p2); pro.appendChild(ul);
       pro.appendChild(p3); pro.appendChild(ul2);
 
-      // Badges
+      // Badges (puedes editar o quitar)
       const badges = document.createElement('div'); badges.className = 'badges';
       ['APIN LATAM','Datos','Personas'].forEach(t=>{
         const s = document.createElement('span'); s.className = 'badge'; s.textContent = t; badges.appendChild(s);
