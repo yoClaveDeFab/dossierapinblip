@@ -41,7 +41,7 @@ transition:transform .18s ease,box-shadow .18s ease}
 .hero-img{height:180px;background:linear-gradient(100deg,var(--blip-primary),var(--blip-secondary));
 position:relative;overflow:hidden}
 .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
-transition:opacity 2s ease-in-out}
+transition:opacity 0.8s ease-in-out}
 .slide.active{opacity:1}
 
 /* Contenido */
@@ -84,25 +84,106 @@ transition:opacity 2s ease-in-out}
 </section>
 
 <script>
-const EXT='.png';
-const INTERVAL_MS=150000;
+const EXT = '.png';
+const INTERVAL_MS = 4000;
 
-const TEAM=[
-  {name:"Ariana González Pablo",role:"Analista de Datos APIN",birthday:"1996-11-08",zodiac:"♏ Escorpio",
-   location:"Toluca, Edo. Méx.",superpower:"Escuchar y conectar con las personas",mantra:"Tú puedes",
-   energy:"💚 Verde (confianza y calma)",pets:"Bixy y Tofu (gatitas) 🐱🐱",
-   photos:["img/Ariana1","img/Ariana2","img/Ariana3","img/Ariana4","img/Ariana5","img/Ariana6","img/Ariana7","img/Ariana8","img/Ariana9"],
-   skills:["CRM Analyst","MKT Analyst","Call Center Analyst"],projects:["Quálitas","Mattilda","Kueski"]},
-  {name:"Yuritzi Medina Guerra",role:"Analista Sr. de Performance e Inteligencia de Negocios",birthday:"1995-12-22",zodiac:"♑ Capricornio",
-   location:"Temascalapa, Edo. Méx.",superpower:"Romper los bots (para mejorarlos después 😎)",mantra:"En unos años no va a importar",
-   energy:"🔵 Azul (calma y fuerza)",pets:"Susy (gatita) + 5 perritos 🐶",
-   photos:["img/Yuri1","img/Yuri2","img/Yuri3","img/Yuri4","img/Yuri5","img/Yuri6","img/Yuri7"],
-   skills:["Systems Analyst","Cyber Security Analyst","SCRUM Analyst"],projects:["Viva","Chubb","Cinépolis"]},
-  {name:"César Ulises Zapata Miramontes",role:"Especialista BI",birthday:"1995-06-23",zodiac:"♋ Cáncer",
-   location:"CDMX, Azcapotzalco",superpower:"Aprender bajo presión sin rendirse",mantra:"La vida no es deporte de mirones",
-   energy:"⚫ Negra (fuerza tranquila y reflexiva)",pets:"Kovu (perrito) 🐕",
-   photos:["img/Cesar1","img/Cesar2","img/Cesar3","img/Cesar4","img/Cesar5","img/Cesar6"],
-   skills:["Statistician","Data engineer","Programmer"],projects:["Principal","SURA","Findep"]}
+/* --- utilidades --- */
+function preload(srcs){
+  srcs.forEach(s=>{
+    const im = new Image();
+    im.onerror = ()=>console.warn('No se encontró:', s);
+    im.src = s;
+  });
+}
+
+/* Carrusel robusto */
+function createCarousel(container, srcList){
+  const sources = srcList.map(x => x + EXT);
+  if (!sources.length) return;
+
+  preload(sources);
+
+  const imgA = document.createElement('img');
+  const imgB = document.createElement('img');
+  imgA.className = 'slide active';
+  imgB.className = 'slide';
+  container.append(imgA, imgB);
+
+  let current = 0;
+  let showA = true;
+
+  imgA.src = sources[0];
+  imgB.src = sources[(0 + 1) % sources.length];
+
+  const swap = (nextIndex)=>{
+    if (showA) {
+      imgB.src = sources[nextIndex];
+      imgA.classList.remove('active');
+      imgB.classList.add('active');
+      showA = false;
+    } else {
+      imgA.src = sources[nextIndex];
+      imgB.classList.remove('active');
+      imgA.classList.add('active');
+      showA = true;
+    }
+    current = nextIndex;
+  };
+
+  const tick = ()=>{
+    const next = (current + 1) % sources.length;
+    if (sources.length > 1) swap(next);
+  };
+
+  let timer = setInterval(tick, INTERVAL_MS);
+  container.addEventListener('mouseenter', ()=>clearInterval(timer));
+  container.addEventListener('mouseleave', ()=> timer = setInterval(tick, INTERVAL_MS));
+}
+
+/* Datos (alineados con /img/) */
+const TEAM = [
+  {
+    name:"Ariana González Pablo",
+    role:"APIN Sr.",
+    birthday:"1996-11-08",
+    zodiac:"♏ Escorpio",
+    location:"Toluca, Edo. Méx.",
+    superpower:"Escuchar y conectar con las personas",
+    mantra:"Tú puedes",
+    energy:"💚 Verde (confianza y calma)",
+    pets:"Bixy y Tofu (gatitas) 🐱🐱",
+    photos:["img/Ariana8","img/Ariana9"],
+    skills:["CRM Analyst","MKT Analyst","Call Center Analyst"],
+    projects:["Quálitas","Mattilda","Kueski"]
+  },
+  {
+    name:"Yuritzi Medina Guerra",
+    role:"APIN Sr.",
+    birthday:"1995-12-22",
+    zodiac:"♑ Capricornio",
+    location:"Temascalapa, Edo. Méx.",
+    superpower:"Romper los bots (para mejorarlos después 😎)",
+    mantra:"En unos años no va a importar",
+    energy:"🔵 Azul (calma y fuerza)",
+    pets:"Susy (gatita) + 5 perritos 🐶",
+    photos:["img/Yuri1","img/Yuri2","img/Yuri3"],
+    skills:["Systems Analyst","Cyber Security Analyst","SCRUM Analyst"],
+    projects:["Viva","Chubb","Cinépolis"]
+  },
+  {
+    name:"César Ulises Zapata Miramontes",
+    role:"APIN Sr.",
+    birthday:"1995-06-23",
+    zodiac:"♋ Cáncer",
+    location:"CDMX, Azcapotzalco",
+    superpower:"Aprender bajo presión sin rendirse",
+    mantra:"La vida no es deporte de mirones",
+    energy:"⚫ Negra (fuerza tranquila y reflexiva)",
+    pets:"Kovu (perrito) 🐕",
+    photos:["img/Cesar1","img/Cesar2","img/Cesar3","img/Cesar4","img/Cesar5","img/Cesar6"],
+    skills:["Statistician","Data engineer","Programmer"],
+    projects:["Principal","SURA","Findep"]
+  }
 ];
 
 function formatBirthday(iso){
@@ -110,45 +191,37 @@ function formatBirthday(iso){
   return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
 }
 
-function preload(srcs){srcs.forEach(s=>{const im=new Image();im.onerror=()=>console.warn('Falta',s);im.src=s;});}
-
-function createCarousel(c,srcList){
-  const s=srcList.map(x=>x+EXT);preload(s);
-  if(!s.length)return;
-  const a=document.createElement('img'),b=document.createElement('img');
-  a.className='slide active';b.className='slide';
-  let i=0,showA=true;const set=(img,src)=>img.src=src;
-  set(a,s[0]);set(b,s.length>1?s[1]:s[0]);
-  c.append(a,b);
-  if(s.length<2)return;
-  const tick=()=>{i=(i+1)%s.length;const n=s[i];
-    if(showA){set(b,n);b.onload=()=>{a.classList.remove('active');b.classList.add('active');showA=false;};}
-    else{set(a,n);a.onload=()=>{b.classList.remove('active');a.classList.add('active');showA=true;};}};
-  let t=setInterval(tick,INTERVAL_MS);
-  c.addEventListener('mouseenter',()=>clearInterval(t));
-  c.addEventListener('mouseleave',()=>t=setInterval(tick,INTERVAL_MS));
-}
-
 function createCard(m){
   const card=document.createElement('div');card.className='card';
   const hero=document.createElement('div');hero.className='hero-img';createCarousel(hero,m.photos);
   const cont=document.createElement('div');cont.className='content';
   cont.innerHTML=`<h3 class='name'>${m.name}</h3><div class='role'>${m.role}</div>`;
-  const info=[['🎂 Cumpleaños',formatBirthday(m.birthday)],['♈ Signo',m.zodiac],
-    ['📍 Ubicación',m.location],['🦸‍♀️ Superpoder',m.superpower],
-    ['💬 Mantra',`“${m.mantra}”`],['🎨 Energía',m.energy],['🐾 Animalitos',m.pets]];
-  info.forEach(([k,v])=>{const p=document.createElement('p');p.className='kv';
-    p.innerHTML=`<strong>${k}:</strong> ${v}`;cont.appendChild(p);});
+  const info=[
+    ['🎂 Cumpleaños',formatBirthday(m.birthday)],
+    ['♈ Signo',m.zodiac],
+    ['📍 Ubicación',m.location],
+    ['🦸‍♀️ Superpoder',m.superpower],
+    ['💬 Mantra',`“${m.mantra}”`],
+    ['🎨 Energía',m.energy],
+    ['🐾 Animalitos',m.pets]
+  ];
+  info.forEach(([k,v])=>{
+    const p=document.createElement('p');p.className='kv';
+    p.innerHTML=`<strong>${k}:</strong> ${v}`;cont.appendChild(p);
+  });
+
   const skills=document.createElement('div');skills.className='skills';
   skills.innerHTML='<h4>Especialidades</h4>';
   const ul=document.createElement('ul');
   m.skills.forEach(s=>ul.innerHTML+=`<li>🔥 ${s}</li>`);skills.appendChild(ul);
   cont.appendChild(skills);
+
   const proj=document.createElement('div');proj.className='projects';
   proj.innerHTML='<h4>Algunos proyectos en Blip</h4>';
   const ulp=document.createElement('ul');
   m.projects.forEach(p=>ulp.innerHTML+=`<li>💼 ${p}</li>`);proj.appendChild(ulp);
   cont.appendChild(proj);
+
   card.append(hero,cont);return card;
 }
 
